@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEKY AIRLINES</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f5f7fb;
+      color:#1A1A1A;
+      line-height:1.6;
+    }
+
+    a{
+      text-decoration:none;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    #loginPage{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        linear-gradient(rgba(11,61,145,0.72), rgba(8,45,107,0.84)),
+        url("teky-airlines.png") center/cover no-repeat;
+      padding:20px;
+    }
+
+    .login-box{
+      width:100%;
+      max-width:520px;
+      background:rgba(255,255,255,0.98);
+      border-radius:32px;
+      box-shadow:0 20px 45px rgba(0,0,0,0.18);
+      padding:42px 34px;
+      text-align:center;
+    }
+
+    .login-box h1{
+      color:#0B3D91;
+      font-size:38px;
+      margin-bottom:10px;
+      font-weight:800;
+    }
+
+    .login-box p{
+      color:#666;
+      font-size:16px;
+      line-height:1.7;
+      margin-bottom:28px;
+    }
+
+    .password-box{
+      position:relative;
+      margin-bottom:16px;
+    }
+
+    .password-box input{
+      width:100%;
+      padding:18px 85px 18px 18px;
+      border:1px solid #d9deea;
+      border-radius:16px;
+      font-size:16px;
+      outline:none;
+    }
+
+    .toggle-password{
+      position:absolute;
+      right:18px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#0B3D91;
+      font-size:15px;
+      font-weight:600;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .login-box button{
+      width:100%;
+      padding:18px;
+      border:none;
+      border-radius:16px;
+      background:#0B3D91;
+      color:#fff;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    #errorMsg{
+      margin-top:12px;
+      color:red;
+      font-size:14px;
+      min-height:20px;
+    }
+
+    #websiteContent{
+      display:none;
+    }
+
+    .topbar{
+      background:#0B3D91;
+      color:#fff;
+      text-align:center;
+      padding:10px 15px;
+      font-size:14px;
+      font-weight:500;
+    }
+
+    header{
+      background:linear-gradient(135deg, #0B3D91, #082d6b);
+      color:#fff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .navbar{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:16px;
+    }
+
+    .logo{
+      font-size:30px;
+      font-weight:800;
+      color:#fff;
+    }
+
+    .logo span{
+      color:#D4AF37;
+    }
+
+    nav{
+      display:flex;
+      gap:22px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    nav a{
+      color:#fff;
+      font-weight:500;
+      font-size:15px;
+    }
+
+    .logout-btn{
+      background:#b71c1c;
+      color:#fff;
+      padding:10px 18px;
+      border:none;
+      border-radius:30px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .hero{
+      width:90%;
+      max-width:1200px;
+      margin:50px auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:50px;
+      align-items:center;
+    }
+
+    .hero-text h4{
+      color:#0B3D91;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:15px;
+      margin-bottom:12px;
+    }
+
+    .hero-text h1{
+      font-size:58px;
+      line-height:1.1;
+      margin-bottom:18px;
+    }
+
+    .hero-text p{
+      font-size:17px;
+      color:#555;
+      margin-bottom:28px;
+      max-width:580px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+      margin-bottom:28px;
+    }
+
+    .btn{
+      padding:14px 24px;
+      border-radius:30px;
+      font-weight:600;
+      display:inline-block;
+    }
+
+    .btn-primary{
+      background:#0B3D91;
+      color:#fff;
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:#0B3D91;
+      border:1px solid #d5ddeb;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .stat-box{
+      background:#fff;
+      padding:22px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 10px 25px rgba(11,61,145,0.10);
+    }
+
+    .stat-box h3{
+      color:#0B3D91;
+      font-size:34px;
+      margin-bottom:6px;
+    }
+
+    .stat-box p{
+      color:#666;
+      font-size:15px;
+    }
+
+    .hero-image img{
+      width:100%;
+      border-radius:26px;
+      box-shadow:0 20px 45px rgba(0,0,0,0.14);
+      object-fit:cover;
+    }
+
+    .section{
+      width:90%;
+      max-width:1200px;
+      margin:80px auto;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:40px;
+    }
+
+    .section-title h2{
+      font-size:40px;
+      margin-bottom:10px;
+    }
+
+    .section-title p{
+      color:#666;
+      max-width:700px;
+      margin:auto;
+    }
+
+    .about-grid,
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:25px;
+    }
+
+    .card{
+      background:#fff;
+      padding:28px;
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(11,61,145,0.08);
+    }
+
+    .card h3{
+      color:#0B3D91;
+      margin-bottom:12px;
+      font-size:24px;
+    }
+
+    .card p{
+      color:#555;
+      font-size:15px;
+    }
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+    }
+
+    .service-card{
+      background:#fff;
+      padding:25px;
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(11,61,145,0.08);
+    }
+
+    .service-card h3{
+      margin-bottom:10px;
+      color:#0B3D91;
+      font-size:21px;
+    }
+
+    .service-card p{
+      color:#555;
+      font-size:15px;
+    }
+
+    .destinations-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:18px;
+    }
+
+    .destination-card{
+      background:#fff;
+      padding:22px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 10px 25px rgba(11,61,145,0.08);
+    }
+
+    .destination-card h3{
+      color:#0B3D91;
+      margin-bottom:8px;
+    }
+
+    .destination-card p{
+      color:#666;
+      font-size:14px;
+    }
+
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+    }
+
+    .gallery-card{
+      background:#fff;
+      padding:14px;
+      border-radius:22px;
+      box-shadow:0 12px 28px rgba(11,61,145,0.10);
+    }
+
+    .gallery-card img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      border-radius:16px;
+    }
+
+    .gallery-card h3{
+      margin-top:14px;
+      color:#0B3D91;
+      font-size:20px;
+    }
+
+    .gallery-card p{
+      color:#666;
+      font-size:14px;
+      margin-top:6px;
+    }
+
+    .contact-item{
+      background:#fff;
+      padding:18px 20px;
+      border-radius:16px;
+      box-shadow:0 10px 25px rgba(11,61,145,0.08);
+      margin-bottom:16px;
+    }
+
+    .contact-item h4{
+      color:#0B3D91;
+      margin-bottom:6px;
+    }
+
+    .contact-item p,
+    .contact-item a{
+      color:#555;
+      font-size:15px;
+      word-break:break-word;
+    }
+
+    .contact-form{
+      background:#fff;
+      padding:28px;
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(11,61,145,0.08);
+    }
+
+    .contact-form h3{
+      color:#0B3D91;
+      margin-bottom:16px;
+      font-size:24px;
+    }
+
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      padding:14px 15px;
+      border:1px solid #d5ddeb;
+      border-radius:12px;
+      margin-bottom:14px;
+      font-size:15px;
+      outline:none;
+    }
+
+    .contact-form textarea{
+      min-height:130px;
+      resize:vertical;
+    }
+
+    footer{
+      background:#0B3D91;
+      color:#fff;
+      text-align:center;
+      padding:28px 15px;
+      margin-top:70px;
+    }
+
+    footer p{
+      margin:6px 0;
+      font-size:14px;
+    }
+
+    @media (max-width: 1024px){
+      .hero,
+      .about-grid,
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+
+      .services-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+
+      .destinations-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+
+      .gallery-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text h1{
+        font-size:44px;
+      }
+    }
+
+    @media (max-width: 768px){
+      .hero-stats,
+      .services-grid,
+      .destinations-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text h1{
+        font-size:36px;
+      }
+
+      .section-title h2{
+        font-size:30px;
+      }
+
+      .logo{
+        font-size:24px;
+      }
+
+      .login-box{
+        padding:34px 22px;
+        border-radius:26px;
+      }
+
+      .login-box h1{
+        font-size:30px;
+      }
+
+      .login-box p{
+        font-size:14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginPage">
+    <div class="login-box">
+      <h1>TEKY AIRLINES</h1>
+      <p>Sign in to access bookings, travel updates, and your passenger dashboard.</p>
+
+      <div class="password-box">
+        <input type="password" id="password" placeholder="Enter your password" onkeydown="if(event.key==='Enter') checkPassword()">
+        <span class="toggle-password" onclick="togglePassword()">Show</span>
+      </div>
+
+      <button onclick="checkPassword()">Login</button>
+      <p id="errorMsg"></p>
+    </div>
+  </div>
+
+  <div id="websiteContent">
+    <div class="topbar">
+      Chennai, Tamil Nadu, India • Support available 24/7 • Fly Smart. Fly TEKY.
+    </div>
+
+    <header>
+      <div class="navbar">
+        <div class="logo">TEKY <span>AIRLINES</span></div>
+        <nav>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#destinations">Destinations</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="hero-text">
+        <h4>Modern Aviation Startup</h4>
+        <h1>Fly Smart. Fly TEKY.</h1>
+        <p>
+          TEKY AIRLINES is a modern aviation startup focused on delivering smarter and more efficient
+          travel experiences. Based in Chennai, we combine advanced technology with customer-first
+          service to make every journey smooth, reliable, and comfortable.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary">Book Now</a>
+          <a href="#destinations" class="btn btn-secondary">Explore Destinations</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-box">
+            <h3>24/7</h3>
+            <p>Customer support</p>
+          </div>
+          <div class="stat-box">
+            <h3>15+</h3>
+            <p>Growing destinations</p>
+          </div>
+          <div class="stat-box">
+            <h3>100%</h3>
+            <p>Mobile-friendly access</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="teky-airlines.png" alt="TEKY AIRLINES main hero image">
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-title">
+        <h2>About TEKY AIRLINES</h2>
+        <p>We are building a modern airline experience designed around comfort, smart service, and reliable journeys.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="card">
+          <h3>Our Story</h3>
+          <p>
+            TEKY AIRLINES is based in Chennai and built for travelers who want a smooth, modern,
+            and affordable flying experience. We aim to connect major cities with comfort and precision.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Mission & Vision</h3>
+          <p>
+            Our mission is to make air travel simpler and more efficient through technology and customer-first service.
+            Our vision is to become a trusted airline known for comfort, clarity, and reliability.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-title">
+        <h2>Services</h2>
+        <p>Every service is designed to create a better travel experience for every passenger.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Flight Booking</h3>
+          <p>Easy and fast online booking system for quick trip planning.</p>
+        </div>
+        <div class="service-card">
+          <h3>24/7 Customer Support</h3>
+          <p>Friendly support anytime you need help or travel guidance.</p>
+        </div>
+        <div class="service-card">
+          <h3>Domestic & International Routes</h3>
+          <p>Expanding connectivity across major travel destinations.</p>
+        </div>
+        <div class="service-card">
+          <h3>Comfortable Seating</h3>
+          <p>Spacious and modern interiors designed for better comfort.</p>
+        </div>
+        <div class="service-card">
+          <h3>Special Offers</h3>
+          <p>Seasonal discounts and offers to make travel more affordable.</p>
+        </div>
+        <div class="service-card">
+          <h3>Mobile-Friendly Access</h3>
+          <p>Book and manage trips from any device with ease.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="destinations">
+      <div class="section-title">
+        <h2>Destinations</h2>
+        <p>We are expanding our route network across major domestic and international hubs.</p>
+      </div>
+
+      <div class="destinations-grid">
+        <div class="destination-card">
+          <h3>Chennai</h3>
+          <p>Our home base and key gateway.</p>
+        </div>
+        <div class="destination-card">
+          <h3>Bengaluru</h3>
+          <p>Fast access for business and leisure travel.</p>
+        </div>
+        <div class="destination-card">
+          <h3>Dubai</h3>
+          <p>International route with growing demand.</p>
+        </div>
+        <div class="destination-card">
+          <h3>Singapore</h3>
+          <p>Global connectivity with smart travel experience.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="section-title">
+        <h2>Fleet Gallery</h2>
+        <p>Explore TEKY AIRLINES through our featured aircraft and airport visuals.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <img src="teky-airlines.png" alt="TEKY AIRLINES main aircraft image">
+          <h3>Main Fleet Visual</h3>
+          <p>Primary homepage image for TEKY AIRLINES.</p>
+        </div>
+        <div class="gallery-card">
+          <img src="2teky-airlines.png" alt="TEKY AIRLINES second aircraft image">
+          <h3>Night Operations</h3>
+          <p>Airport activity and aircraft operations during the night.</p>
+        </div>
+        <div class="gallery-card">
+          <img src="3teky-airlines.png" alt="TEKY AIRLINES third aircraft image">
+          <h3>Premium Ground View</h3>
+          <p>A strong airport-side aircraft visual for brand presentation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="section-title">
+        <h2>Contact Us</h2>
+        <p>Reach our team for support, enquiries, and booking assistance.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div>
+          <div class="contact-item">
+            <h4>Phone</h4>
+            <p>044-7550 0085</p>
+          </div>
+
+          <div class="contact-item">
+            <h4>Email</h4>
+            <a href="mailto:support@tekyairlines.com">support@tekyairlines.com</a>
+          </div>
+
+          <div class="contact-item">
+            <h4>Location</h4>
+            <p>Chennai, Tamil Nadu, India</p>
+          </div>
+
+          <div class="contact-item">
+            <h4>Social Media</h4>
+            <p>Instagram: @teky_._official</p>
+            <p>Twitter (X): @teky_air</p>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h3>Send a Message</h3>
+          <input type="text" placeholder="Your name">
+          <input type="email" placeholder="Your email">
+          <input type="text" placeholder="Subject">
+          <textarea placeholder="Write your message"></textarea>
+          <a href="#" class="btn btn-primary">Submit Enquiry</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p><strong>TEKY AIRLINES</strong> — Fly Smart. Fly TEKY.</p>
+      <p>Phone: 044-7550 0085 | Email: support@tekyairlines.com</p>
+      <p>Chennai, Tamil Nadu, India</p>
+    </footer>
+  </div>
+
+  <script>
+    const correctPassword = "THEJAS30082006";
+
+    function checkPassword() {
+      const enteredPassword = document.getElementById("password").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (enteredPassword === correctPassword) {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("websiteContent").style.display = "block";
+        errorMsg.textContent = "";
+      } else {
+        errorMsg.textContent = "Wrong password. Please try again.";
+      }
+    }
+
+    function togglePassword() {
+      const passwordInput = document.getElementById("password");
+      const toggleText = document.querySelector(".toggle-password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleText.textContent = "Hide";
+      } else {
+        passwordInput.type = "password";
+        toggleText.textContent = "Show";
+      }
+    }
+
+    function logout() {
+      document.getElementById("websiteContent").style.display = "none";
+      document.getElementById("loginPage").style.display = "flex";
+      document.getElementById("password").value = "";
+      document.getElementById("errorMsg").textContent = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+
+</body>
+</html>
